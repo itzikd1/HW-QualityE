@@ -104,7 +104,7 @@ public class Script {
         s.readNamesFromFile();
 //        s.CountSpecificString("afdsaaaaaaaaaaaafA");
 //        s.CountAllStrings(11);
-        s.CountMaxString(5);
+        s.CountMaxString(3);
     }
 
     private void CountMaxString(int i) {
