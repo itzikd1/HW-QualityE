@@ -10,7 +10,7 @@ question 3 -> hashmap  < string,  count> , change capital letters to lowercase
 
 public class Script {
     ArrayList<String> allNamesList;
-
+    
     public Script() {
         allNamesList = new ArrayList<String>();
     }
@@ -20,7 +20,7 @@ public class Script {
      * pathToFile - enter file path on pc
      */
     public void readNamesFromFile() {
-        String pathToFile = "C:\\Users\\Raanan\\Downloads\\semester7\\Quality\\src\\namesfile.txt";
+        String pathToFile = "C:\\Users\\itzik\\Downloads\\namesfile.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
             String line;
             //go over all lines and add them to array named allNamesList
@@ -79,8 +79,8 @@ public class Script {
         HashMap<String, Integer> stringAndCount = new HashMap<>();
         for (int i = 0; i < allNamesList.size(); i++) {
             String currentName = allNamesList.get(i);
-            if(toLowerCase)
-                currentName=currentName.toLowerCase();
+            if (toLowerCase)
+                currentName = currentName.toLowerCase();
             for (int startIndex = 0; startIndex + length <= currentName.length(); startIndex++) {
                 String currentSubstring = "";
                 for (int j = 0; j < length; j++) { // create the substring that has to be added to answer list.
@@ -95,7 +95,7 @@ public class Script {
                 }
             }
         }
-        if(toLowerCase==false){//TODO bad code :)
+        if (toLowerCase == false) {//TODO bad code :)
             Iterator it = stringAndCount.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry) it.next();
@@ -108,7 +108,7 @@ public class Script {
     }
 
     private void CountMaxString(int i) {
-        HashMap<String, Integer> stringsAndCount = CountAllStrings(i,true);// we got list of substrings of length i, and occurences. lowercase.
+        HashMap<String, Integer> stringsAndCount = CountAllStrings(i, true);// we got list of substrings of length i, and occurences. lowercase.
         LinkedList<String> mostFrequentSubstrings = new LinkedList<>();
         //find the
         int maxValue = 0;
@@ -128,24 +128,24 @@ public class Script {
         }
     }
 
-    public static void main(String[] args) {
-        Script s = new Script();
-        s.readNamesFromFile();
-//        s.CountSpecificString("ett");
-//        s.CountAllStrings(8, false);
-//        s.CountMaxString(8);
-        s.AllIncludesString("aachristaa");
-
-    }
-
     public void AllIncludesString(String word) {// TODO i need to know instructions about Uppercase words, and if string like "assaf" contains "af" = true or not.. unclear from instructions.
         //TODO fix
         String currentName;
-        for(int i = 0; i < allNamesList.size();i++){
-            currentName=allNamesList.get(i).toLowerCase();
-            if(word.contains(currentName))
+        for (int i = 0; i < allNamesList.size(); i++) {
+            currentName = allNamesList.get(i).toLowerCase();
+            if (word.contains(currentName))
                 System.out.println(currentName);
         }
+
+    }
+
+    public static void main(String[] args) {
+        Script s = new Script();
+        s.readNamesFromFile();
+        s.CountSpecificString("it");
+//        s.CountAllStrings(8, false);
+//        s.CountMaxString(8);
+        s.AllIncludesString("aachristaa");
 
     }
 
