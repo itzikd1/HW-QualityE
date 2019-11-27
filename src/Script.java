@@ -204,8 +204,9 @@ public class Script {
                     System.out.println("Error, wrong commands inserted");
             }
         } catch (Exception e) {
-            System.out.println("Please insert command: AllIncludesString,CountMaxString,CountAllStrings,CountSpecificString and then input");
-            System.out.println("example CountSpecificString ilan");
+            System.out.println("Please insert command: \n\nAllIncludesString\nCountMaxString\nCountAllStrings\nCountSpecificString\n\nthen insert input text");
+            System.out.println("");
+            System.out.println("Example CountSpecificString ilan");
         }
     }
 }
