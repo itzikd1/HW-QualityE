@@ -23,7 +23,7 @@ public class Script {
      * pathToFile - enter file path on pc
      */
     public void readNamesFromFile() {
-        String pathToFile = "C:\\Users\\itzik\\Downloads\\namesfile.txt";
+        String pathToFile = "C:\\Users\\itzik\\Downloads\\SoftwareQuality_Ass1\\SoftwareQuality_Ass1\\namesFinalList-fixed.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
             String line;
             //go over all lines and add them to array named allNamesList
@@ -179,10 +179,10 @@ public class Script {
     public static void main(String[] args) {
         Script s = new Script();
         s.readNamesFromFile();
-//        s.CountSpecificString("a");
-        s.CountAllStrings(2, false);
-//        s.CountMaxString(8);
-//        s.AllIncludesString("aachristaa");
+//        s.CountSpecificString("As");
+//        s.CountAllStrings(2);
+//        s.CountMaxString(6);
+        s.AllIncludesString("asdasdasdchrisitziksapirranan");
 
     }
 
