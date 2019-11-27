@@ -1,51 +1,53 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /*
 function to change uppercase to lowercase ( parameters : single name or all list )
 question 3 -> hashmap  < string,  count> , change capital letters to lowercase
-
-
-
  */
+
 public class Script {
-    ArrayList<String> names;
+    ArrayList<String> allNamesList;
 
     public Script() {
-        names = new ArrayList<String>();
+        allNamesList = new ArrayList<String>();
     }
 
+    /**
+     * Function to read names from txt file
+     * pathToFile - enter file path on pc
+     */
     public void readNamesFromFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Raanan\\Downloads\\semester7\\Quality\\src\\rotem.txt"))) {
+        String pathToFile = "C:\\Users\\Raanan\\Downloads\\semester7\\Quality\\src\\rotem.txt";
+        try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
             String line;
+            //go over all lines and add them to array named allNamesList
             while ((line = br.readLine()) != null) {
-                names.add(line);
+                allNamesList.add(line);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void CountSpecificString(String s) {
-
-        int answer = 0;
-
-        for (int i = 0; i < names.size(); i++) {
-
-            System.out.println(names.get(i));
-            if (getNumberOfAppearances(s, names.get(i)) > 0) // no duplicates required.
-                answer++;
+    /**
+     * // TODO: 27/11/2019  Function to count all ....todo this  Itzik
+     * @param word
+     */
+    public void CountSpecificString(String word) {
+        int NumberOfAppearances = 0;
+        for (int i = 0; i < allNamesList.size(); i++) {
+            System.out.println(allNamesList.get(i));
+            if (getNumberOfAppearances(word, allNamesList.get(i)) > 0) // no duplicates required.
+                NumberOfAppearances++;
         }
-
-        System.out.println(answer);
+        System.out.println(NumberOfAppearances);
     }
 
+
+    // TODO: 27/11/2019 not sure what this function does, is there a better way to do last index?  Itzik
     /**
      * @param substring
      * @param name
@@ -62,15 +64,20 @@ public class Script {
                     lastIndex += substring.length();
                 }
             }
-
         }
         return (count);
     }
 
+    /**
+     * // TODO: 27/11/2019 check this text here Itzik
+     * Count for each string in text file, how many times it appeared in text
+     * @param length - length of string we are counting
+     * @return
+     */
     public HashMap<String, Integer> CountAllStrings(int length) {
-        HashMap<String, Integer> stringAndCount = new HashMap<>(); // for each substring of length length, count occurences.
-        for (int i = 0; i < names.size(); i++) { // iterate all names
-            String currentName = names.get(i);
+        HashMap<String, Integer> stringAndCount = new HashMap<>();
+        for (int i = 0; i < allNamesList.size(); i++) {
+            String currentName = allNamesList.get(i);
             for (int startIndex = 0; startIndex + length <= currentName.length(); startIndex++) {
                 String currentSubstring = "";
                 for (int j = 0; j < length; j++) { // create the substring that has to be added to answer list.
