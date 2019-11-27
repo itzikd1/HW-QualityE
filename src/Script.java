@@ -23,7 +23,7 @@ public class Script {
      * pathToFile - enter file path on pc
      */
     public void readNamesFromFile() {
-        String pathToFile = "C:\\Users\\itzik\\Downloads\\SoftwareQuality_Ass1\\SoftwareQuality_Ass1\\namesFinalList-fixed.txt";
+        String pathToFile = "names.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
             String line;
             //go over all lines and add them to array named allNamesList
@@ -136,6 +136,7 @@ public class Script {
 
     /**
      * print most frequent substrings of length i from allNamesList
+     *
      * @param i - substring length
      */
     private void CountMaxString(int i) {
@@ -164,6 +165,7 @@ public class Script {
 
     /**
      * return all names that are contained in 'word'
+     *
      * @param word
      */
     public void AllIncludesString(String word) {
@@ -179,11 +181,31 @@ public class Script {
     public static void main(String[] args) {
         Script s = new Script();
         s.readNamesFromFile();
-//        s.CountSpecificString("As");
-//        s.CountAllStrings(2);
-//        s.CountMaxString(6);
-        s.AllIncludesString("asdasdasdchrisitziksapirranan");
+        try {
+            String input = args[1];
+            if (args.length >= 2)
+                for (int i = 2; i < args.length; i++)
+                    input = input + " " + args[i];
 
+            switch (args[0]) {
+                case "CountSpecificString":
+                    s.CountSpecificString(input);
+                    break;
+                case "CountAllStrings":
+                    s.CountAllStrings(Integer.parseInt(input));
+                    break;
+                case "CountMaxString":
+                    s.CountMaxString(Integer.parseInt(input));
+                    break;
+                case "AllIncludesString":
+                    s.AllIncludesString(input);
+                    break;
+                default:
+                    System.out.println("Error, wrong commands inserted");
+            }
+        } catch (Exception e) {
+            System.out.println("Please insert command: AllIncludesString,CountMaxString,CountAllStrings,CountSpecificString and then input");
+            System.out.println("example CountSpecificString ilan");
+        }
     }
-
 }
