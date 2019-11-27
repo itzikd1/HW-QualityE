@@ -37,6 +37,7 @@ public class Script {
 
     /**
      * function to count how many times substring appears in allNamesList - without duplicate
+     *
      * @param word - inserted by user
      */
     public void CountSpecificString(String word) {
@@ -73,9 +74,31 @@ public class Script {
 
     /**
      * Count for each string in size of length, how many times it appeared in text
+     *
      * @param length - of string we are counting
-     * @param toLowerCase - true- todo , false - todo
-     * @return -
+     */
+    public void CountAllStrings(int length) {
+        HashMap<String, Integer> stringAndCount = new HashMap<>();
+        //go over allNamesList 1 by 1
+        for (int i = 0; i < allNamesList.size(); i++) {
+            String currentName = allNamesList.get(i);
+            //go over each word by selecting each time substring in the size of "length"
+            allSubstringOfWord(length, stringAndCount, currentName);
+        }
+        Iterator it = stringAndCount.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            System.out.println(pair.getKey() + ":" + pair.getValue());
+        }
+    }
+
+
+    /**
+     * Count for each string in size of length, how many times it appeared in text, with option for lowerCase
+     *
+     * @param length      - size of substring
+     * @param toLowerCase - to convert word to lowercase or not
+     * @return Hashmap with each substring and how many times it appeared
      */
     public HashMap<String, Integer> CountAllStrings(int length, boolean toLowerCase) {
         HashMap<String, Integer> stringAndCount = new HashMap<>();
@@ -84,42 +107,42 @@ public class Script {
             String currentName = allNamesList.get(i);
             if (toLowerCase)
                 currentName = currentName.toLowerCase();
-
-            
-            for (int startIndex = 0; startIndex + length <= currentName.length(); startIndex++) {
-                String currentSubstring = "";
-                for (int j = 0; j < length; j++) { // create the substring that has to be added to answer list.
-                    currentSubstring += currentName.charAt(startIndex + j);
-                }
-                //add to list or update list
-                if (stringAndCount.containsKey(currentSubstring)) {
-                    int oldValue = stringAndCount.get(currentSubstring);
-                    stringAndCount.replace(currentSubstring, oldValue + 1);
-                } else {
-                    stringAndCount.put(currentSubstring, 1);
-                }
-            }
-        }
-        if (toLowerCase == false) {//TODO bad code :)
-            Iterator it = stringAndCount.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                System.out.println(pair.getKey() + ":" + pair.getValue());
-//            it.remove(); // avoids a ConcurrentModificationException
-
-            }
+            //go over each word by selecting each time substring in the size of "length"
+            allSubstringOfWord(length, stringAndCount, currentName);
         }
         return stringAndCount;
     }
 
     /**
-     * @param i
+     * updates a hashmap of all the substring from allNamesList
+     *
+     * @param length
+     * @param stringAndCount - hashMap with all names and number of appearances
+     * @param currentName    - substring we are adding to hashmap
+     */
+    private void allSubstringOfWord(int length, HashMap<String, Integer> stringAndCount, String currentName) {
+        for (int startIndex = 0; startIndex + length <= currentName.length(); startIndex++) {
+            String currentSubstring = "";
+            currentSubstring = currentName.substring(startIndex, startIndex + length);
+            //add to list or update list
+            if (stringAndCount.containsKey(currentSubstring)) {
+                int oldValue = stringAndCount.get(currentSubstring);
+                stringAndCount.replace(currentSubstring, oldValue + 1);
+            } else {
+                stringAndCount.put(currentSubstring, 1);
+            }
+        }
+    }
+
+    /**
+     * print most frequent substrings of length i from allNamesList
+     * @param i - substring length
      */
     private void CountMaxString(int i) {
-        // we got list of substrings of length i, and occurences. lowercase.
+        // we got list of substrings of length i, and occurrences. converted to lowercase.
         HashMap<String, Integer> stringsAndCount = CountAllStrings(i, true);
         LinkedList<String> mostFrequentSubstrings = new LinkedList<>();
-        //find the
+        //find the max value of substring
         int maxValue = 0;
         for (Map.Entry<String, Integer> entry : stringsAndCount.entrySet()) {
             if (entry.getValue() > maxValue) {
@@ -127,6 +150,7 @@ public class Script {
                 maxValue = entry.getValue();
             }
         }
+        //find all substring with same count as max value that was found
         for (Map.Entry<String, Integer> entry : stringsAndCount.entrySet()) {
             if (entry.getValue() == maxValue) {
                 mostFrequentSubstrings.add(entry.getKey());
@@ -139,6 +163,7 @@ public class Script {
     }
 
     /**
+     * return all names that are contained in 'word'
      * @param word
      */
     public void AllIncludesString(String word) {
@@ -149,7 +174,6 @@ public class Script {
             if (word.contains(currentName))
                 System.out.println(currentName);
         }
-
     }
 
     public static void main(String[] args) {
