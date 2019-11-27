@@ -10,13 +10,16 @@ question 3 -> hashmap  < string,  count> , change capital letters to lowercase
 
 public class Script {
     ArrayList<String> allNamesList;
-    
+
+    /**
+     * constructor
+     */
     public Script() {
         allNamesList = new ArrayList<String>();
     }
 
     /**
-     * Function to read names from txt file
+     * Function to read names from txt file and insert into allNamesList
      * pathToFile - enter file path on pc
      */
     public void readNamesFromFile() {
@@ -33,20 +36,18 @@ public class Script {
     }
 
     /**
-     * // TODO: 27/11/2019  Function to count all ....todo this  Itzik
-     *
-     * @param word
+     * function to count how many times substring appears in allNamesList - without duplicate
+     * @param word - inserted by user
      */
     public void CountSpecificString(String word) {
         int NumberOfAppearances = 0;
         for (int i = 0; i < allNamesList.size(); i++) {
-//            System.out.println(allNamesList.get(i));
-            if (getNumberOfAppearances(word, allNamesList.get(i)) > 0) // no duplicates required.
+            if (getNumberOfAppearances(word, allNamesList.get(i)) > 0)
                 NumberOfAppearances++;
         }
         System.out.println(NumberOfAppearances);
     }
-    // TODO: 27/11/2019 not sure what this function does, is there a better way to do last index?  Itzik
+
 
     /**
      * @param substring
@@ -57,6 +58,7 @@ public class Script {
         int lastIndex = 0;
         int count = 0;
         for (int i = 0; i < name.length(); i++) {
+            //lastIndex equal to -1 if it went over all string.
             while (lastIndex != -1) {
                 lastIndex = name.indexOf(substring, lastIndex);
                 if (lastIndex != -1) {
@@ -68,19 +70,22 @@ public class Script {
         return (count);
     }
 
+
     /**
-     * // TODO: 27/11/2019 check this text here Itzik
-     * Count for each string in text file, how many times it appeared in text
-     *
-     * @param length - length of string we are counting
-     * @return
+     * Count for each string in size of length, how many times it appeared in text
+     * @param length - of string we are counting
+     * @param toLowerCase - true- todo , false - todo
+     * @return -
      */
     public HashMap<String, Integer> CountAllStrings(int length, boolean toLowerCase) {
         HashMap<String, Integer> stringAndCount = new HashMap<>();
+        //go over allNamesList 1 by 1
         for (int i = 0; i < allNamesList.size(); i++) {
             String currentName = allNamesList.get(i);
             if (toLowerCase)
                 currentName = currentName.toLowerCase();
+
+            
             for (int startIndex = 0; startIndex + length <= currentName.length(); startIndex++) {
                 String currentSubstring = "";
                 for (int j = 0; j < length; j++) { // create the substring that has to be added to answer list.
@@ -107,14 +112,19 @@ public class Script {
         return stringAndCount;
     }
 
+    /**
+     * @param i
+     */
     private void CountMaxString(int i) {
-        HashMap<String, Integer> stringsAndCount = CountAllStrings(i, true);// we got list of substrings of length i, and occurences. lowercase.
+        // we got list of substrings of length i, and occurences. lowercase.
+        HashMap<String, Integer> stringsAndCount = CountAllStrings(i, true);
         LinkedList<String> mostFrequentSubstrings = new LinkedList<>();
         //find the
         int maxValue = 0;
         for (Map.Entry<String, Integer> entry : stringsAndCount.entrySet()) {
             if (entry.getValue() > maxValue) {
-                maxValue = entry.getValue(); // the substrings that appeared highest times, appeared maxValue times.
+                // the substrings that appeared highest times, appeared maxValue times.
+                maxValue = entry.getValue();
             }
         }
         for (Map.Entry<String, Integer> entry : stringsAndCount.entrySet()) {
@@ -128,8 +138,11 @@ public class Script {
         }
     }
 
-    public void AllIncludesString(String word) {// TODO i need to know instructions about Uppercase words, and if string like "assaf" contains "af" = true or not.. unclear from instructions.
-        //TODO fix
+    /**
+     * @param word
+     */
+    public void AllIncludesString(String word) {
+        // TODO i need to know instructions about Uppercase words, and if string like "assaf" contains "af" = true or not.. unclear from instructions.
         String currentName;
         for (int i = 0; i < allNamesList.size(); i++) {
             currentName = allNamesList.get(i).toLowerCase();
@@ -142,10 +155,10 @@ public class Script {
     public static void main(String[] args) {
         Script s = new Script();
         s.readNamesFromFile();
-        s.CountSpecificString("it");
-//        s.CountAllStrings(8, false);
+//        s.CountSpecificString("a");
+        s.CountAllStrings(2, false);
 //        s.CountMaxString(8);
-        s.AllIncludesString("aachristaa");
+//        s.AllIncludesString("aachristaa");
 
     }
 
